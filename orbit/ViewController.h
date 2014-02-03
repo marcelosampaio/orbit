@@ -10,4 +10,19 @@
 
 @interface ViewController : UIViewController
 
+// base coordinates
+@property int X;
+@property int Y;
+@property int width;
+@property int height;
+
+// balls
+@property (nonatomic,strong)UIImageView *ball1;
+@property (nonatomic,strong)UIImageView *ball2;
+@property (nonatomic,strong)UIImageView *ball3;
+
+// main timer
+@property (strong,nonatomic) NSTimer *timer;
+
+
 @end

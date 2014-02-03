@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C0C025018A005C600B4C445 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C0C024F18A005C600B4C445 /* ball.png */; };
 		9CE59BAD18A0026D004988B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE59BAC18A0026D004988B9 /* Foundation.framework */; };
 		9CE59BAF18A0026D004988B9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE59BAE18A0026D004988B9 /* CoreGraphics.framework */; };
 		9CE59BB118A0026D004988B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE59BB018A0026D004988B9 /* UIKit.framework */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C0C024F18A005C600B4C445 /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
 		9CE59BA918A0026D004988B9 /* orbit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = orbit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CE59BAC18A0026D004988B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9CE59BAE18A0026D004988B9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -131,6 +133,7 @@
 			children = (
 				9CE59BB418A0026D004988B9 /* orbit-Info.plist */,
 				9CE59BB518A0026D004988B9 /* InfoPlist.strings */,
+				9C0C024F18A005C600B4C445 /* ball.png */,
 				9CE59BB818A0026D004988B9 /* main.m */,
 				9CE59BBA18A0026D004988B9 /* orbit-Prefix.pch */,
 			);
@@ -232,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CE59BC318A0026D004988B9 /* Main_iPad.storyboard in Resources */,
+				9C0C025018A005C600B4C445 /* ball.png in Resources */,
 				9CE59BC818A0026D004988B9 /* Images.xcassets in Resources */,
 				9CE59BC018A0026D004988B9 /* Main_iPhone.storyboard in Resources */,
 				9CE59BB718A0026D004988B9 /* InfoPlist.strings in Resources */,
@@ -474,6 +478,7 @@
 				9CE59BE018A0026D004988B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9CE59BE118A0026D004988B9 /* Build configuration list for PBXNativeTarget "orbitTests" */ = {
 			isa = XCConfigurationList;
@@ -482,6 +487,7 @@
 				9CE59BE318A0026D004988B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
