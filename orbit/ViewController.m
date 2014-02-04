@@ -18,15 +18,13 @@
 @synthesize timer;
 @synthesize ball1,ball2,ball3;
 @synthesize ball1Center,ball2Center,ball3Center;
-@synthesize width,height;
-@synthesize caindo,changeDirections;
+@synthesize width1,width2,width3,height1,height2,height3;
+@synthesize changeDirections;
 @synthesize factorX1,factorX2,factorX3,factorY1,factorY2,factorY3;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    NSLog(@"welcome to orbit!");
     
     [self loadBall];
 
@@ -39,43 +37,41 @@
 -(void)loadBall
 {
     // ball 3
-    self.width=45;
-    self.height=45;
-    self.ball3=[[UIImageView alloc]initWithFrame:CGRectMake([self randomX],[self randomY], self.width, self.height)];
+    self.width3=45;
+    self.height3=45;
+    self.ball3=[[UIImageView alloc]initWithFrame:CGRectMake([self randomXToValue:self.width3],[self randomYToValue:self.height3], self.width3, self.height3)];
     self.ball3.image=[UIImage imageNamed:@"ball.png"];
     [self.view addSubview:self.ball3];
     
     // ball 2
-    self.width=30;
-    self.height=30;
-    self.ball2=[[UIImageView alloc]initWithFrame:CGRectMake([self randomX],[self randomY], self.width, self.height)];
+    self.width2=30;
+    self.height2=30;
+    self.ball2=[[UIImageView alloc]initWithFrame:CGRectMake([self randomXToValue:self.width2],[self randomYToValue:self.height2], self.width2, self.height2)];
     self.ball2.image=[UIImage imageNamed:@"ball.png"];
     [self.view addSubview:self.ball2];
 
-    
     // ball 1
-    self.width=15;
-    self.height=15;
-    self.ball1=[[UIImageView alloc]initWithFrame:CGRectMake([self randomX],[self randomY], self.width, self.height)];
+    self.width1=15;
+    self.height1=15;
+    self.ball1=[[UIImageView alloc]initWithFrame:CGRectMake([self randomXToValue:self.width1],[self randomYToValue:self.height1], self.width1, self.height1)];
     self.ball1.image=[UIImage imageNamed:@"ball.png"];
     [self.view addSubview:self.ball1];
-    self.caindo=YES;
     
     // change directions flag
     self.changeDirections=YES;
     
 }
 
--(int)randomX
+-(int)randomXToValue:(int)value
 {
-    int max=self.view.frame.size.width-self.width;
+    int max=self.view.frame.size.width-value;
     return arc4random() %max;
 
 }
 
--(int)randomY
+-(int)randomYToValue:(int)value
 {
-    int max=self.view.frame.size.height-self.height;
+    int max=self.view.frame.size.height-value;
     return arc4random() %max;
 }
 
@@ -83,63 +79,36 @@
 // Orbit in action
 -(void)orbit
 {
-    NSLog(@"oribit");
+    NSLog(@"orbit");
     
     [self collisions];
     
     // check the need of changing directions
     if (changeDirections) {
-        factorX1=[self randomFactor];
-        factorY1=[self randomFactor];
-        factorX2=[self randomFactor];
-        factorY2=[self randomFactor];
-        factorX3=[self randomFactor];
-        factorY3=[self randomFactor];
-        changeDirections=NO;
+        self.factorX1=[self randomFactor];
+        self.factorY1=[self randomFactor];
+        self.factorX2=[self randomFactor];
+        self.factorY2=[self randomFactor];
+        self.factorX3=[self randomFactor];
+        self.factorY3=[self randomFactor];
+        self.changeDirections=NO;
     }
-    
     
     // increment position 1
     self.ball1.center=CGPointMake(self.ball1.center.x + self.ball1Center.x, self.ball1.center.y + self.ball1Center.y*0.65);
-    self.ball1Center=CGPointMake(self.ball1Center.x+factorX1, self.ball1Center.y+factorY1);
+    self.ball1Center=CGPointMake(self.ball1Center.x+self.factorX1, self.ball1Center.y+self.factorY1);
 
     // increment position 2
     self.ball2.center=CGPointMake(self.ball2.center.x + self.ball2Center.x, self.ball2.center.y + self.ball2Center.y*1.3);
-    self.ball2Center=CGPointMake(self.ball2Center.x+factorX2, self.ball2Center.y+factorY2);
+    self.ball2Center=CGPointMake(self.ball2Center.x+self.factorX2, self.ball2Center.y+self.factorY2);
     
     // increment position 3
     self.ball3.center=CGPointMake(self.ball3.center.x + self.ball3Center.x, self.ball3.center.y + self.ball3Center.y*3.9);
-    self.ball3Center=CGPointMake(self.ball3Center.x+factorX3, self.ball3Center.y+factorY3);
-
-
-    
-    
-    
-    //    if (ball1.center.y<=self.view.frame.size.height-7.5&&caindo) {
-//        self.ball1.center=CGPointMake(self.ball1.center.x + self.X, self.ball1.center.y + self.Y*0.65);
-//    }else
-//    {
-//        self.ball1.center=CGPointMake(self.ball1.center.x + self.X, self.ball1.center.y - self.Y*0.65);
-//        self.X=self.X+0.02;
-//        caindo=NO;
-//    }
-//    
-//    
-//    if (ball2.center.y<=self.view.frame.size.height-15) {
-//        self.ball2.center=CGPointMake(self.ball2.center.x + self.X, self.ball2.center.y + self.Y*1.3);
-//    }else{
-//        self.ball2.center=CGPointMake(self.ball2.center.x - 0.30, self.ball2.center.y);
-//    }
-//    
-//    if (ball3.center.y<=self.view.frame.size.height-22.5) {
-//        self.ball3.center=CGPointMake(self.ball3.center.x + self.X, self.ball3.center.y + self.Y*3.9);
-//    }else{
-//        self.ball3.center=CGPointMake(self.ball3.center.x + 0.30, self.ball3.center.y);
-//    }
-//
-//    self.Y=self.Y+0.01f;
+    self.ball3Center=CGPointMake(self.ball3Center.x+self.factorX3, self.ball3Center.y+self.factorY3);
 
 }
+
+
 
 -(float)randomFactor
 {
@@ -161,8 +130,70 @@
 
 -(void)collisions
 {
-    NSLog(@"collisions");
+    // check borders collisions
+    
+    // ball 1
+    // top border
+    if (self.ball1.center.y<=self.height1/2) {
+        NSLog(@"ball1 saiu por cima");
+        [timer invalidate];
+    }
+    
+    // bottom border
+    if (self.ball1.center.y>=self.view.frame.size.height-(self.height1/2)) {
+        NSLog(@"ball1 saiu por baixo");
+        [timer invalidate];
+    }
+
+    // left border
+    if (self.ball1.center.x<=self.width1/2) {
+        NSLog(@"ball1 saiu pela esquerda");
+        [timer invalidate];
+    }
+
+    // right border
+    if (self.ball1.center.x>=self.view.frame.size.width-(self.width1/2)) {
+        NSLog(@"ball1 saiu pela direita");
+        [timer invalidate];
+    }
+
+    
+    // ball 2
+    // top border
+    if (self.ball2.center.y<=self.height2/2) {
+        NSLog(@"ball2 saiu por cima");
+        [timer invalidate];
+    }
+    
+    // bottom border
+    if (self.ball2.center.y>=self.view.frame.size.height-(self.height2/2)) {
+        NSLog(@"ball2 saiu por baixo");
+        [timer invalidate];
+    }
+    
+    // left border
+    if (self.ball2.center.x<=self.width2/2) {
+        NSLog(@"ball2 saiu pela esquerda");
+        [timer invalidate];
+    }
+    
+    // right border
+    if (self.ball2.center.x>=self.view.frame.size.width-(self.width2/2)) {
+        NSLog(@"ball2 saiu pela direita");
+        [timer invalidate];
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }
+
+
+
 
 
 // Esconder status bar

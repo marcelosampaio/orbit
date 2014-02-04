@@ -11,8 +11,15 @@
 @interface ViewController : UIViewController
 
 // base coordinates
-@property int width;
-@property int height;
+@property int width1;
+@property int height1;
+
+@property int width2;
+@property int height2;
+
+@property int width3;
+@property int height3;
+
 
 // balls
 @property (nonatomic,strong)UIImageView *ball1;
@@ -23,9 +30,6 @@
 
 @property (nonatomic,strong)UIImageView *ball3;
 @property CGPoint ball3Center;
-
-
-@property BOOL caindo;
 
 // direction control
 @property bool changeDirections;
