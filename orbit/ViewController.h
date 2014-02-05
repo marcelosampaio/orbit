@@ -30,6 +30,7 @@
 
 // direction control
 @property bool changeDirections;
+@property int changeBalls;
 @property float factorX1;
 @property float factorY1;
 @property float factorX2;

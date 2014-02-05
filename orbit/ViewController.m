@@ -18,7 +18,7 @@
 @synthesize timer;
 @synthesize ball1,ball2,ball3;
 @synthesize width1,width2,width3,height1,height2,height3;
-@synthesize changeDirections;
+@synthesize changeDirections,changeBalls;
 @synthesize factorX1,factorX2,factorX3,factorY1,factorY2,factorY3;
 
 - (void)viewDidLoad
@@ -58,6 +58,7 @@
     
     // change directions flag
     self.changeDirections=YES;
+    self.changeBalls=0;
     
 }
 
@@ -78,16 +79,11 @@
 // Orbit in action
 -(void)orbit
 {
-//    [self collisions];
+    [self ballCollision];
     
     // check the need of changing directions
     if (changeDirections) {
-        self.factorX1=[self randomFactor];
-        self.factorY1=[self randomFactor];
-        self.factorX2=[self randomFactor];
-        self.factorY2=[self randomFactor];
-        self.factorX3=[self randomFactor];
-        self.factorY3=[self randomFactor];
+        [self randomizeFactor];
         self.changeDirections=NO;
     }
     
@@ -153,6 +149,33 @@
     
 }
 
+-(void)randomizeFactor
+{
+    if (self.changeBalls==0) {
+        self.factorX1=[self randomFactor];
+        self.factorY1=[self randomFactor];
+        self.factorX2=[self randomFactor];
+        self.factorY2=[self randomFactor];
+        self.factorX3=[self randomFactor];
+        self.factorY3=[self randomFactor];
+    }else if (changeBalls==12){
+        self.factorX1=[self randomFactor];
+        self.factorY1=[self randomFactor];
+        self.factorX2=[self randomFactor];
+        self.factorY2=[self randomFactor];
+    }else if (changeBalls==13){
+        self.factorX1=[self randomFactor];
+        self.factorY1=[self randomFactor];
+        self.factorX3=[self randomFactor];
+        self.factorY3=[self randomFactor];
+    }else if (changeBalls==23){
+        self.factorX2=[self randomFactor];
+        self.factorY2=[self randomFactor];
+        self.factorX3=[self randomFactor];
+        self.factorY3=[self randomFactor];
+    }
+
+}
 
 
 -(float)randomFactor
@@ -160,9 +183,9 @@
     float factor=0;
     
     // extracting & transforming factor
-    factor=arc4random() %5;
+    factor=arc4random() %3;
     factor=factor+1;
-    factor=factor/10;
+    factor=factor/4;
     // check factor's sign
     int sign=arc4random() %2;
     if (sign==0) {
@@ -173,111 +196,23 @@
 }
 
 
--(void)collisions
-{
-    // check borders collisions
-    [self borderCollision];
-    
-    
-    // chech balls colision
-    [self ballCollision];
-    
-    
-    
-}
-
-
--(void)borderCollision
-{
-    // ball 1 ============
-    // top border
-    if (self.ball1.center.y<=self.height1/2) {
-        self.factorY1=(self.factorY1 * -1)+0.05;
-
-//        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu por cima"];
-    }
-    
-    // bottom border
-    if (self.ball1.center.y>=self.view.frame.size.height-(self.height1/2)) {
-        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu por baixo"];    }
-    
-    // left border
-    if (self.ball1.center.x<=self.width1/2) {
-        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu pela esquerda"];
-    }
-    
-    // right border
-    if (self.ball1.center.x>=self.view.frame.size.width-(self.width1/2)) {
-        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu pela direita"];
-    }
-    
-    
-    // ball 2 ==========
-    // top border
-    if (self.ball2.center.y<=self.height2/2) {
-        [self debugBall:2 xCoordinate:self.ball2.center.x yCoordinate:self.ball2.center.y status:@"ball2 saiu por cima"];
-    }
-    
-    // bottom border
-    if (self.ball2.center.y>=self.view.frame.size.height-(self.height2/2)) {
-        [self debugBall:2 xCoordinate:self.ball2.center.x yCoordinate:self.ball2.center.y status:@"ball2 saiu por baixo"];    }
-    
-    // left border
-    if (self.ball2.center.x<=self.width2/2) {
-        [self debugBall:2 xCoordinate:self.ball2.center.x yCoordinate:self.ball2.center.y status:@"ball2 saiu pela esquerda"];    }
-    
-    // right border
-    if (self.ball2.center.x>=self.view.frame.size.width-(self.width2/2)) {
-        [self debugBall:2 xCoordinate:self.ball2.center.x yCoordinate:self.ball2.center.y status:@"ball2 saiu pela direita"];
-    }
-    
-    
-    // ball 3 ==========
-    // top border
-    if (self.ball3.center.y<=self.height3/2) {
-        [self debugBall:3 xCoordinate:self.ball3.center.x yCoordinate:self.ball3.center.y status:@"ball3 saiu por cima"];
-    }
-    
-    // bottom border
-    if (self.ball3.center.y>=self.view.frame.size.height-(self.height3/2)) {
-        [self debugBall:3 xCoordinate:self.ball3.center.x yCoordinate:self.ball3.center.y status:@"ball3 saiu por baixo"];
-    }
-    
-    // left border
-    if (self.ball3.center.x<=self.width3/2) {
-        [self debugBall:3 xCoordinate:self.ball3.center.x yCoordinate:self.ball3.center.y status:@"ball3 saiu pela esquerda"];
-    }
-    
-    // right border
-    if (self.ball3.center.x>=self.view.frame.size.width-(self.width3/2)) {
-        [self debugBall:3 xCoordinate:self.ball3.center.x yCoordinate:self.ball3.center.y status:@"ball3 saiu pela direita"];
-    }
-
-}
-
-
--(void)debugBall:(int)ball xCoordinate:(float)x yCoordinate:(float)y status:(NSString *)status
-{
-    if (ball==2||ball==3) {
-        return;
-    }
-    NSLog(@"ball %d x=%f  y=%f  %@",ball,x,y,status);
-    NSLog(@"Limite do TOP=%d",self.height1/2);
-    NSLog(@"Limite de BAIXO=%f",self.view.frame.size.height-(self.height1/2));
-    NSLog(@"Limite da ESQUERDA=%d",self.width1/2);
-    NSLog(@"Limite da DIREITA=%f",self.view.frame.size.width-(self.width1/2));
-    NSLog(@"fator X=%f",self.factorX1);
-    NSLog(@"fator Y=%f",self.factorY1);
-    
-    [timer invalidate];
-}
-
-
-
-
 -(void)ballCollision
 {
-    NSLog(@"ball collision");
+    if (CGRectIntersectsRect(self.ball1.frame, self.ball2.frame)) {
+        self.changeDirections=YES;
+        self.changeBalls=12;
+        NSLog(@"colision between ball 1 & ball 2");
+    }
+    if (CGRectIntersectsRect(self.ball1.frame, self.ball3.frame)) {
+        self.changeDirections=YES;
+        self.changeBalls=13;
+        NSLog(@"colision between ball 1 & ball 3");
+    }
+    if (CGRectIntersectsRect(self.ball2.frame, self.ball3.frame)) {
+        self.changeDirections=YES;
+        self.changeBalls=23;
+        NSLog(@"colision between ball 2 & ball 3");
+    }
 }
 
 
