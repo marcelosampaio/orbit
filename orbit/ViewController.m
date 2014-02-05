@@ -106,6 +106,9 @@
     self.ball3.center=CGPointMake(self.ball3.center.x + self.ball3Center.x, self.ball3.center.y + self.ball3Center.y*3.9);
     self.ball3Center=CGPointMake(self.ball3Center.x+self.factorX3, self.ball3Center.y+self.factorY3);
 
+    
+    
+    
 }
 
 
@@ -131,11 +134,20 @@
 -(void)collisions
 {
     // check borders collisions
+    [self borderCollision];
     
-    // ball 1
+    
+    
+    
+}
+
+
+-(void)borderCollision
+{
+    // ball 1 ============
     // top border
     if (self.ball1.center.y<=self.height1/2) {
-        NSLog(@"ball1 saiu por cima");
+        NSLog(@"ball1 saiu por cima *************************");
         [timer invalidate];
     }
     
@@ -144,21 +156,21 @@
         NSLog(@"ball1 saiu por baixo");
         [timer invalidate];
     }
-
+    
     // left border
     if (self.ball1.center.x<=self.width1/2) {
         NSLog(@"ball1 saiu pela esquerda");
         [timer invalidate];
     }
-
+    
     // right border
     if (self.ball1.center.x>=self.view.frame.size.width-(self.width1/2)) {
         NSLog(@"ball1 saiu pela direita");
         [timer invalidate];
     }
-
     
-    // ball 2
+    
+    // ball 2 ==========
     // top border
     if (self.ball2.center.y<=self.height2/2) {
         NSLog(@"ball2 saiu por cima");
@@ -184,14 +196,32 @@
     }
     
     
+    // ball 3 ==========
+    // top border
+    if (self.ball3.center.y<=self.height3/2) {
+        NSLog(@"ball3 saiu por cima");
+        [timer invalidate];
+    }
     
+    // bottom border
+    if (self.ball3.center.y>=self.view.frame.size.height-(self.height3/2)) {
+        NSLog(@"ball3 saiu por baixo");
+        [timer invalidate];
+    }
     
+    // left border
+    if (self.ball3.center.x<=self.width3/2) {
+        NSLog(@"ball3 saiu pela esquerda");
+        [timer invalidate];
+    }
     
-    
-    
-    
-}
+    // right border
+    if (self.ball3.center.x>=self.view.frame.size.width-(self.width3/2)) {
+        NSLog(@"ball3 saiu pela direita");
+        [timer invalidate];
+    }
 
+}
 
 
 
