@@ -148,81 +148,75 @@
     // ball 1 ============
     // top border
     if (self.ball1.center.y<=self.height1/2) {
-        NSLog(@"ball1 saiu por cima *************************");
-        [timer invalidate];
+        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu por cima"];
     }
     
     // bottom border
     if (self.ball1.center.y>=self.view.frame.size.height-(self.height1/2)) {
-        NSLog(@"ball1 saiu por baixo");
-        [timer invalidate];
-    }
+        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu por baixo"];    }
     
     // left border
     if (self.ball1.center.x<=self.width1/2) {
-        NSLog(@"ball1 saiu pela esquerda");
-        [timer invalidate];
+        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu pela esquerda"];
     }
     
     // right border
     if (self.ball1.center.x>=self.view.frame.size.width-(self.width1/2)) {
-        NSLog(@"ball1 saiu pela direita");
-        [timer invalidate];
+        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu pela direita"];
     }
     
     
     // ball 2 ==========
     // top border
     if (self.ball2.center.y<=self.height2/2) {
-        NSLog(@"ball2 saiu por cima");
-        [timer invalidate];
+        [self debugBall:2 xCoordinate:self.ball2.center.x yCoordinate:self.ball2.center.y status:@"ball2 saiu por cima"];
     }
     
     // bottom border
     if (self.ball2.center.y>=self.view.frame.size.height-(self.height2/2)) {
-        NSLog(@"ball2 saiu por baixo");
-        [timer invalidate];
-    }
+        [self debugBall:2 xCoordinate:self.ball2.center.x yCoordinate:self.ball2.center.y status:@"ball2 saiu por baixo"];    }
     
     // left border
     if (self.ball2.center.x<=self.width2/2) {
-        NSLog(@"ball2 saiu pela esquerda");
-        [timer invalidate];
-    }
+        [self debugBall:2 xCoordinate:self.ball2.center.x yCoordinate:self.ball2.center.y status:@"ball2 saiu pela esquerda"];    }
     
     // right border
     if (self.ball2.center.x>=self.view.frame.size.width-(self.width2/2)) {
-        NSLog(@"ball2 saiu pela direita");
-        [timer invalidate];
+        [self debugBall:2 xCoordinate:self.ball2.center.x yCoordinate:self.ball2.center.y status:@"ball2 saiu pela direita"];
     }
     
     
     // ball 3 ==========
     // top border
     if (self.ball3.center.y<=self.height3/2) {
-        NSLog(@"ball3 saiu por cima");
-        [timer invalidate];
+        [self debugBall:3 xCoordinate:self.ball3.center.x yCoordinate:self.ball3.center.y status:@"ball3 saiu por cima"];
     }
     
     // bottom border
     if (self.ball3.center.y>=self.view.frame.size.height-(self.height3/2)) {
-        NSLog(@"ball3 saiu por baixo");
-        [timer invalidate];
+        [self debugBall:3 xCoordinate:self.ball3.center.x yCoordinate:self.ball3.center.y status:@"ball3 saiu por baixo"];
     }
     
     // left border
     if (self.ball3.center.x<=self.width3/2) {
-        NSLog(@"ball3 saiu pela esquerda");
-        [timer invalidate];
+        [self debugBall:3 xCoordinate:self.ball3.center.x yCoordinate:self.ball3.center.y status:@"ball3 saiu pela esquerda"];
     }
     
     // right border
     if (self.ball3.center.x>=self.view.frame.size.width-(self.width3/2)) {
-        NSLog(@"ball3 saiu pela direita");
-        [timer invalidate];
+        [self debugBall:3 xCoordinate:self.ball3.center.x yCoordinate:self.ball3.center.y status:@"ball3 saiu pela direita"];
     }
 
 }
+
+
+-(void)debugBall:(int)ball xCoordinate:(float)x yCoordinate:(float)y status:(NSString *)status
+{
+    NSLog(@"ball %d x=%f  y=%f  %@",ball,x,y,status);
+    [timer invalidate];
+}
+
+
 
 
 -(void)ballCollision
