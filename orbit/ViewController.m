@@ -201,17 +201,14 @@
     if (CGRectIntersectsRect(self.ball1.frame, self.ball2.frame)) {
         self.changeDirections=YES;
         self.changeBalls=12;
-        NSLog(@"colision between ball 1 & ball 2");
     }
     if (CGRectIntersectsRect(self.ball1.frame, self.ball3.frame)) {
         self.changeDirections=YES;
         self.changeBalls=13;
-        NSLog(@"colision between ball 1 & ball 3");
     }
     if (CGRectIntersectsRect(self.ball2.frame, self.ball3.frame)) {
         self.changeDirections=YES;
         self.changeBalls=23;
-        NSLog(@"colision between ball 2 & ball 3");
     }
 }
 
