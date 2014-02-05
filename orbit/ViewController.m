@@ -79,8 +79,6 @@
 // Orbit in action
 -(void)orbit
 {
-    NSLog(@"orbit");
-    
     [self collisions];
     
     // check the need of changing directions
@@ -95,15 +93,15 @@
     }
     
     // increment position 1
-    self.ball1.center=CGPointMake(self.ball1.center.x + self.ball1Center.x, self.ball1.center.y + self.ball1Center.y*0.65);
+    self.ball1.center=CGPointMake(self.ball1.center.x + self.ball1Center.x, self.ball1.center.y + self.ball1Center.y*0.65);  // 0.65
     self.ball1Center=CGPointMake(self.ball1Center.x+self.factorX1, self.ball1Center.y+self.factorY1);
 
     // increment position 2
-    self.ball2.center=CGPointMake(self.ball2.center.x + self.ball2Center.x, self.ball2.center.y + self.ball2Center.y*1.3);
+    self.ball2.center=CGPointMake(self.ball2.center.x + self.ball2Center.x, self.ball2.center.y + self.ball2Center.y*1.3);  // 1.3
     self.ball2Center=CGPointMake(self.ball2Center.x+self.factorX2, self.ball2Center.y+self.factorY2);
     
     // increment position 3
-    self.ball3.center=CGPointMake(self.ball3.center.x + self.ball3Center.x, self.ball3.center.y + self.ball3Center.y*3.9);
+    self.ball3.center=CGPointMake(self.ball3.center.x + self.ball3Center.x, self.ball3.center.y + self.ball3Center.y*3.9);  // 3.9
     self.ball3Center=CGPointMake(self.ball3Center.x+self.factorX3, self.ball3Center.y+self.factorY3);
 
     
@@ -118,7 +116,7 @@
     float factor=0;
     
     // extracting & transforming factor
-    factor=arc4random() %3;
+    factor=arc4random() %5;
     factor=factor+1;
     factor=factor/100;
     // check factor's sign
@@ -136,6 +134,9 @@
     // check borders collisions
     [self borderCollision];
     
+    
+    // chech balls colision
+    [self ballCollision];
     
     
     
@@ -223,6 +224,11 @@
 
 }
 
+
+-(void)ballCollision
+{
+    NSLog(@"ball collision");
+}
 
 
 
