@@ -23,13 +23,10 @@
 
 // balls
 @property (nonatomic,strong)UIImageView *ball1;
-@property CGPoint ball1Center;
 
 @property (nonatomic,strong)UIImageView *ball2;
-@property CGPoint ball2Center;
 
 @property (nonatomic,strong)UIImageView *ball3;
-@property CGPoint ball3Center;
 
 // direction control
 @property bool changeDirections;

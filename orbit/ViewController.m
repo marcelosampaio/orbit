@@ -17,7 +17,6 @@
 
 @synthesize timer;
 @synthesize ball1,ball2,ball3;
-@synthesize ball1Center,ball2Center,ball3Center;
 @synthesize width1,width2,width3,height1,height2,height3;
 @synthesize changeDirections;
 @synthesize factorX1,factorX2,factorX3,factorY1,factorY2,factorY3;
@@ -79,7 +78,7 @@
 // Orbit in action
 -(void)orbit
 {
-    [self collisions];
+//    [self collisions];
     
     // check the need of changing directions
     if (changeDirections) {
@@ -93,18 +92,63 @@
     }
     
     // increment position 1
-    self.ball1.center=CGPointMake(self.ball1.center.x + self.ball1Center.x, self.ball1.center.y + self.ball1Center.y*0.65);  // 0.65
-    self.ball1Center=CGPointMake(self.ball1Center.x+self.factorX1, self.ball1Center.y+self.factorY1);
+    self.ball1.center=CGPointMake(self.ball1.center.x + self.factorX1, self.ball1.center.y + self.factorY1);  // 0.65
+    
+    // Width treatment
+    if (self.ball1.center.x<self.width1/2) {
+        self.factorX1=0-self.factorX1;
+    }
+    if (self.ball1.center.x>self.view.frame.size.width-(self.width1/2)) {
+        self.factorX1=0-self.factorX1;
+    }
+    
+    // Height treatment
+    if (self.ball1.center.y<self.height1/2) {
+        self.factorY1=0-self.factorY1;
+    }
+    if (self.ball1.center.y>self.view.frame.size.height-(self.height1/2)) {
+        self.factorY1=0-self.factorY1;
+    }
+
 
     // increment position 2
-    self.ball2.center=CGPointMake(self.ball2.center.x + self.ball2Center.x, self.ball2.center.y + self.ball2Center.y*1.3);  // 1.3
-    self.ball2Center=CGPointMake(self.ball2Center.x+self.factorX2, self.ball2Center.y+self.factorY2);
+    self.ball2.center=CGPointMake(self.ball2.center.x + self.factorX2, self.ball2.center.y + self.factorY2);  // 1.3
+    
+    // Width treatment
+    if (self.ball2.center.x<self.width2/2) {
+        self.factorX2=0-self.factorX2;
+    }
+    if (self.ball2.center.x>self.view.frame.size.width-(self.width2/2)) {
+        self.factorX2=0-self.factorX2;
+    }
+    
+    // Height treatment
+    if (self.ball2.center.y<self.height2/2) {
+        self.factorY2=0-self.factorY2;
+    }
+    if (self.ball2.center.y>self.view.frame.size.height-(self.height2/2)) {
+        self.factorY2=0-self.factorY2;
+    }
+    
     
     // increment position 3
-    self.ball3.center=CGPointMake(self.ball3.center.x + self.ball3Center.x, self.ball3.center.y + self.ball3Center.y*3.9);  // 3.9
-    self.ball3Center=CGPointMake(self.ball3Center.x+self.factorX3, self.ball3Center.y+self.factorY3);
+    self.ball3.center=CGPointMake(self.ball3.center.x + self.factorX3, self.ball3.center.y + self.factorY3);  // 3.9
 
+    // Width treatment
+    if (self.ball3.center.x<self.width3/2) {
+        self.factorX3=0-self.factorX3;
+    }
+    if (self.ball3.center.x>self.view.frame.size.width-(self.width3/2)) {
+        self.factorX3=0-self.factorX3;
+    }
     
+    // Height treatment
+    if (self.ball3.center.y<self.height3/2) {
+        self.factorY3=0-self.factorY3;
+    }
+    if (self.ball3.center.y>self.view.frame.size.height-(self.height3/2)) {
+        self.factorY3=0-self.factorY3;
+    }
     
     
 }
@@ -118,7 +162,7 @@
     // extracting & transforming factor
     factor=arc4random() %5;
     factor=factor+1;
-    factor=factor/100;
+    factor=factor/10;
     // check factor's sign
     int sign=arc4random() %2;
     if (sign==0) {
@@ -148,7 +192,9 @@
     // ball 1 ============
     // top border
     if (self.ball1.center.y<=self.height1/2) {
-        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu por cima"];
+        self.factorY1=(self.factorY1 * -1)+0.05;
+
+//        [self debugBall:1 xCoordinate:self.ball1.center.x yCoordinate:self.ball1.center.y status:@"ball1 saiu por cima"];
     }
     
     // bottom border
@@ -212,7 +258,17 @@
 
 -(void)debugBall:(int)ball xCoordinate:(float)x yCoordinate:(float)y status:(NSString *)status
 {
+    if (ball==2||ball==3) {
+        return;
+    }
     NSLog(@"ball %d x=%f  y=%f  %@",ball,x,y,status);
+    NSLog(@"Limite do TOP=%d",self.height1/2);
+    NSLog(@"Limite de BAIXO=%f",self.view.frame.size.height-(self.height1/2));
+    NSLog(@"Limite da ESQUERDA=%d",self.width1/2);
+    NSLog(@"Limite da DIREITA=%f",self.view.frame.size.width-(self.width1/2));
+    NSLog(@"fator X=%f",self.factorX1);
+    NSLog(@"fator Y=%f",self.factorY1);
+    
     [timer invalidate];
 }
 
