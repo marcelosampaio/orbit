@@ -106,6 +106,8 @@
     }
     
     // increment position 1
+    self.lastPoint=CGPointMake(self.ball1.center.x, self.ball1.center.y);
+
     self.ball1.center=CGPointMake(self.ball1.center.x + self.factorX1, self.ball1.center.y + self.factorY1);  // 0.65
     [self drawBall1Trail];
     
@@ -178,8 +180,8 @@
     
     
     CGContextSetLineCap(UIGraphicsGetCurrentContext(),kCGLineCapRound);
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 0.30);
-    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0.00, 0.65, 0.00, 0.05);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 0.45);
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 1.00, 0.00, 0.00, 1.00);
     CGContextBeginPath(UIGraphicsGetCurrentContext());
     CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
     CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), self.ball1.center.x, self.ball1.center.y);
