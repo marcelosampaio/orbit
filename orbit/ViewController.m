@@ -21,9 +21,14 @@
 @synthesize changeDirections,changeBalls;
 @synthesize factorX1,factorX2,factorX3,factorY1,factorY2,factorY3;
 
+// drawing
+@synthesize lastPoint,moveBackTo,currentPoint,location,lastClick,drawImage;
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self formatDrawingArea];
     
     [self loadBall];
 
@@ -32,6 +37,14 @@
     
 }
 
+-(void)formatDrawingArea
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    drawImage.image=[defaults objectForKey:@"drawImageKey"];
+    drawImage=[[UIImageView alloc] initWithImage:nil];
+    drawImage.frame=self.view.frame;
+    [self.view addSubview:drawImage];
+}
 
 -(void)loadBall
 {
@@ -52,7 +65,12 @@
     // ball 1
     self.width1=15;
     self.height1=15;
-    self.ball1=[[UIImageView alloc]initWithFrame:CGRectMake([self randomXToValue:self.width1],[self randomYToValue:self.height1], self.width1, self.height1)];
+    
+    // drawing usage
+    self.lastPoint=CGPointMake([self randomXToValue:self.width1], [self randomYToValue:self.height1]);
+
+    
+    self.ball1=[[UIImageView alloc]initWithFrame:CGRectMake(self.lastPoint.x,self.lastPoint.y, self.width1, self.height1)];
     self.ball1.image=[UIImage imageNamed:@"ball.png"];
     [self.view addSubview:self.ball1];
     
@@ -89,6 +107,8 @@
     
     // increment position 1
     self.ball1.center=CGPointMake(self.ball1.center.x + self.factorX1, self.ball1.center.y + self.factorY1);  // 0.65
+    [self drawBall1Trail];
+    
     
     // Width treatment
     if (self.ball1.center.x<self.width1/2) {
@@ -148,6 +168,34 @@
     
     
 }
+
+
+-(void)drawBall1Trail
+{
+    UIGraphicsBeginImageContext(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height));
+    
+    [drawImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    
+    
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(),kCGLineCapRound);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 0.30);
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0.00, 0.65, 0.00, 0.05);
+    CGContextBeginPath(UIGraphicsGetCurrentContext());
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), self.ball1.center.x, self.ball1.center.y);
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    
+    [drawImage setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)]; // iPhone 5 size
+    drawImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    //lastPoint=currentPoint;
+    
+    [self.view addSubview:drawImage];
+
+}
+
+
+
 
 -(void)randomizeFactor
 {
@@ -218,9 +266,6 @@
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
-
-
-
 
 
 

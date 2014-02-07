@@ -38,13 +38,17 @@
 @property float factorX3;
 @property float factorY3;
 
-
-
-
-
-
 // main timer
 @property (strong,nonatomic) NSTimer *timer;
+
+// drawing
+@property CGPoint lastPoint;
+@property CGPoint moveBackTo;
+@property CGPoint currentPoint;
+@property CGPoint location;
+
+@property(nonatomic,retain) NSDate *lastClick;
+@property(nonatomic,retain) UIImageView *drawImage;
 
 
 @end
